@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+out.log
+build.log
+build_err.log
+dev_error.log
+error.txt
+*.exe
+.env
+db_data/
+coverage/
+.vscode/

@@ -1,0 +1,39 @@
+# Vị Quê - Local Specialty Marketplace Implementation Plan
+
+This project will build "Vị Quê", a full-stack local specialty marketplace using a Golang (Gin + GORM) MVC backend and a Next.js (App Router + Tailwind) frontend.
+
+## User Review Required
+
+Please review the proposed architecture and execution order. Let me know if you would like any adjustments to the approach or data models before I begin generating the files.
+
+## Proposed Changes
+
+### Backend Structure
+- We will initialize a Go module `backend` and create the MVC directories (`models`, `controllers`, `services`, `repositories`, `middleware`, `routes`, `utils`, `dto`).
+- Database models will use GORM with PostgreSQL.
+- Auth uses JWT and bcrypt.
+- Rate limiting and security headers will be added as Gin middleware.
+
+### Frontend Structure
+- We will initialize a Next.js 14 project using `npx create-next-app@latest`.
+- UI will be built with Tailwind CSS, `shadcn/ui`, and Framer Motion.
+- State management via Zustand, API calls via Axios + SWR.
+
+### Execution Order
+1. **Setup**: Generate folder structure, `go.mod`, and Next.js foundation.
+2. **Backend Core**: Connect to DB (`gorm`), define all `models/*.go`, create seeding script.
+3. **Backend Auth**: Build `auth_service.go`, `auth_controller.go`, `jwt_util.go`, and test endpoints.
+4. **Backend Modules**: Add products, categories, orders, and reviews with complete CRUD and RBAC.
+5. **Frontend Core**: Install dependencies, setup layout, and routing.
+6. **Frontend Features**: Build Homepage, Auth, Products, Cart, Dashboards (Seller/Admin).
+7. **Deployment & Docs**: Add `docker-compose.yml`, `README.md`, and Postman collection.
+
+## Verification Plan
+
+### Automated Tests
+- The backend API endpoints will be tested via code to ensure proper responses.
+- Application components will be verified to execute without fatal errors.
+
+### Manual Verification
+- We will use Docker Compose to start the full stack.
+- We will verify that we can browse the frontend, login, and purchase an item.

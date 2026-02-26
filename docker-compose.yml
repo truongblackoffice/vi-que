@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: vique_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vique
+      TZ: Asia/Ho_Chi_Minh
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: vique_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@vique.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: vique_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=host=db user=postgres password=postgres dbname=vique port=5432 sslmode=disable TimeZone=Asia/Ho_Chi_Minh
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: vique_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/public/uploads:/app/public/uploads
+    restart: unless-stopped
+
+  admin_frontend:
+    build: ./admin-frontend
+    container_name: vique_admin_frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
