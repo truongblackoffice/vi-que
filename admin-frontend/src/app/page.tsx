@@ -139,7 +139,7 @@ export default function AdminDashboard() {
                   {orders.slice(0, 10).map((o: any) => (
                     <tr key={o.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50">
                       <td className="p-4 pl-6 font-medium text-slate-900">#{o.id}</td>
-                      <td className="p-4">{o.buyer?.name || 'Vô danh'}</td>
+                      <td className="p-4 text-slate-900 font-medium">{o.buyer?.name || 'Vô danh'}</td>
                       <td className="p-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-bold ${o.status === 'delivered' ? 'bg-green-100 text-green-700' :
                           o.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'

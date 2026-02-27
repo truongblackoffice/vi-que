@@ -7,7 +7,7 @@ import (
 	"vique/backend/repositories"
 )
 
-func CreateOrder(buyerID uint, req dto.CreateOrderReq) (*models.Order, error) {
+func CreateOrder(buyerID *uint, req dto.CreateOrderReq) (*models.Order, error) {
 	var totalAmount float64
 	var orderItems []models.OrderItem
 
@@ -31,10 +31,31 @@ func CreateOrder(buyerID uint, req dto.CreateOrderReq) (*models.Order, error) {
 		})
 	}
 
+	var discountAmount float64
+	var voucher *models.Voucher
+
+	if req.VoucherCode != nil && *req.VoucherCode != "" {
+		v, calcDiscount, err := ValidateAndCalculateDiscount(*req.VoucherCode, totalAmount)
+		if err == nil {
+			discountAmount = calcDiscount
+			voucher = v
+			// Increment usage implicitly or via update later
+			voucher.UsageCount++
+			repositories.UpdateVoucher(voucher)
+		} else {
+			return nil, err // Reject order if voucher is bad
+		}
+	}
+
+	finalAmount := totalAmount - discountAmount
+
 	order := models.Order{
 		BuyerID:         buyerID,
 		Status:          models.OrderPending,
-		TotalAmount:     totalAmount,
+		PaymentMethod:   req.PaymentMethod,
+		VoucherCode:     req.VoucherCode,
+		DiscountAmount:  discountAmount,
+		TotalAmount:     finalAmount,
 		ShippingAddress: req.ShippingAddress,
 		Items:           orderItems,
 	}
@@ -65,7 +86,7 @@ func UpdateOrderStatus(id uint, userID uint, role models.Role, req dto.UpdateOrd
 		}
 	} else if role == models.RoleBuyer {
 		if req.Status == string(models.OrderCancelled) && order.Status == models.OrderPending {
-			if order.BuyerID != userID {
+			if order.BuyerID == nil || *order.BuyerID != userID {
 				return nil, errors.New("forbidden")
 			}
 		} else {

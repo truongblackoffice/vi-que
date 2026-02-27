@@ -13,7 +13,11 @@ import (
 )
 
 func CreateOrder(c *gin.Context) {
-	buyerID := c.MustGet("userID").(uint)
+	var buyerID *uint
+	if val, exists := c.Get("userID"); exists {
+		id := val.(uint)
+		buyerID = &id
+	}
 
 	var req dto.CreateOrderReq
 	if err := c.ShouldBindJSON(&req); err != nil {

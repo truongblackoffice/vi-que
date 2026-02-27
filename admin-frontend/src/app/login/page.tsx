@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
+                            className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 font-medium placeholder:font-normal placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900 focus:border-slate-900 focus:outline-none"
                             placeholder="Nhập email quản trị viên..."
                         />
                     </div>
@@ -58,7 +58,8 @@ export default function AdminLoginPage() {
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
+                            className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 font-medium placeholder:font-normal placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900 focus:border-slate-900 focus:outline-none"
+                            placeholder="••••••••"
                         />
                     </div>
                     <button

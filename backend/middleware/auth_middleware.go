@@ -50,6 +50,38 @@ func AuthMiddleware() gin.HandlerFunc {
 	}
 }
 
+// OptionalAuthMiddleware validates the token if present, setting user data but doesn't abort if missing or invalid.
+func OptionalAuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var token string
+
+		authHeader := c.GetHeader("Authorization")
+		if authHeader != "" {
+			parts := strings.Split(authHeader, " ")
+			if len(parts) == 2 && parts[0] == "Bearer" {
+				token = parts[1]
+			}
+		}
+
+		if token == "" {
+			cookie, err := c.Cookie("access_token")
+			if err == nil && cookie != "" {
+				token = cookie
+			}
+		}
+
+		if token != "" {
+			claims, err := utils.VerifyToken(token)
+			if err == nil {
+				c.Set("userID", claims.UserID)
+				c.Set("role", claims.Role)
+			}
+		}
+
+		c.Next()
+	}
+}
+
 func RoleMiddleware(roles ...models.Role) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		roleVal, exists := c.Get("role")

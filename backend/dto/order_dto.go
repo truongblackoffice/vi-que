@@ -3,6 +3,8 @@ package dto
 type CreateOrderReq struct {
 	Items           []OrderItemReq         `json:"items" binding:"required,min=1"`
 	ShippingAddress map[string]interface{} `json:"shipping_address" binding:"required"`
+	PaymentMethod   string                 `json:"payment_method" binding:"required,oneof=cod banking"`
+	VoucherCode     *string                `json:"voucher_code,omitempty"`
 }
 
 type OrderItemReq struct {

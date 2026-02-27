@@ -13,13 +13,14 @@ import { Suspense } from 'react';
 function ProductsContent() {
     const searchParams = useSearchParams();
     const initialCategory = searchParams.get('category');
+    const initialSearch = searchParams.get('search');
 
     const [products, setProducts] = useState<any[]>([]);
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     const [filter, setFilter] = useState({
-        search: '',
+        search: initialSearch || '',
         category_id: initialCategory || 'all',
         origin: 'all',
         page: 1,

@@ -25,6 +25,7 @@ func main() {
 		&models.Order{},
 		&models.OrderItem{},
 		&models.Review{},
+		&models.Voucher{},
 	)
 	if err != nil {
 		log.Fatalf("Migration failed: %v", err)

@@ -36,6 +36,11 @@ func SetupRoutes(r *gin.Engine) {
 		categories.GET("", controllers.GetCategories)
 	}
 
+	vouchers := api.Group("/vouchers")
+	{
+		vouchers.POST("/validate", controllers.ValidateVoucher)
+	}
+
 	seller := api.Group("/seller")
 	seller.Use(middleware.AuthMiddleware())
 	seller.Use(middleware.RoleMiddleware(models.RoleSeller, models.RoleAdmin))
@@ -45,19 +50,30 @@ func SetupRoutes(r *gin.Engine) {
 		seller.DELETE("/products/:id", controllers.DeleteProduct)
 	}
 
+	// Protected order routes (Requires auth)
 	orders := api.Group("/orders")
 	orders.Use(middleware.AuthMiddleware())
 	{
-		orders.POST("", middleware.RoleMiddleware(models.RoleBuyer), controllers.CreateOrder)
 		orders.GET("", controllers.GetMyOrders)
 		orders.GET("/:id", controllers.GetOrderByID)
 		orders.PUT("/:id/status", controllers.UpdateOrderStatus)
 	}
 
+	// Public order route (Guest checkout allowed)
+	api.POST("/orders", middleware.OptionalAuthMiddleware(), controllers.CreateOrder)
+
 	reviews := api.Group("/reviews")
 	reviews.Use(middleware.AuthMiddleware())
 	{
 		reviews.POST("", middleware.RoleMiddleware(models.RoleBuyer), controllers.CreateReview)
+	}
+
+	users := api.Group("/users")
+	users.Use(middleware.AuthMiddleware())
+	{
+		users.GET("/me", controllers.GetMyProfile)
+		users.PUT("/me", controllers.UpdateMyProfile)
+		users.PUT("/me/password", controllers.ChangeMyPassword)
 	}
 
 	admin := api.Group("/admin")

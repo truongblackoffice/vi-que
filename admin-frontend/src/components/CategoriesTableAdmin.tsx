@@ -106,7 +106,7 @@ export default function CategoriesTableAdmin() {
                             <tr key={c.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50">
                                 <td className="p-4 pl-6 font-medium text-slate-900">#{c.id}</td>
                                 <td className="p-4 font-bold text-slate-800">{c.name}</td>
-                                <td className="p-4 text-slate-500">{c.slug}</td>
+                                <td className="p-4 font-medium text-slate-900">{c.slug}</td>
                                 <td className="p-4 text-right pr-6 flex justify-end gap-2">
                                     <button
                                         onClick={() => openEdit(c)}

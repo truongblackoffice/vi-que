@@ -74,12 +74,12 @@ export default function ProductsTableAdmin() {
                                         )}
                                         <div>
                                             <p className="font-bold text-slate-800 line-clamp-1">{p.name}</p>
-                                            <p className="text-xs text-slate-500">{p.category?.name}</p>
+                                            <p className="font-medium text-slate-600 text-sm">{p.category?.name}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="p-4 text-slate-600">
-                                    <span className="bg-slate-100 px-2 py-1 rounded text-xs font-medium">{p.seller?.name || 'Vô danh'}</span>
+                                <td className="p-4 font-medium text-slate-900">
+                                    <span className="bg-slate-100 px-2 py-1 rounded text-sm font-medium text-slate-900 border border-slate-200">{p.seller?.name || 'Vô danh'}</span>
                                 </td>
                                 <td className="p-4 font-bold text-slate-900 line-clamp-1">
                                     {new Intl.NumberFormat('vi-VN').format(p.price)}đ

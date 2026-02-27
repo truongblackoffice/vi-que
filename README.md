@@ -2,6 +2,28 @@
 
 Vị Quê is a full-stack local specialty marketplace web application connecting buyers with local sellers from My Tho, Dong Thap, and the Mekong Delta regions. Built with a robust Golang (Gin + GORM) MVC backend and a modern Next.js 14 frontend.
 
+## ⏳ Trạng thái dự án (Project Status)
+
+### ✅ Những tính năng đã làm (Completed)
+- **Hồ sơ cá nhân (Profile)**: 
+  - Xem và cập nhật thông tin cá nhân (Tên, Số điện thoại).
+  - Đổi mật khẩu bảo mật.
+  - Tích hợp giao diện trang cá nhân và menu điều hướng (Navbar) cho tất cả các quyền (Buyer, Seller).
+- **Hệ thống xác thực (Auth)**: Đăng ký, Đăng nhập, Đăng xuất, JWT, Phân quyền (Role-based).
+- **Sản phẩm (Products)**: Xem danh sách, tìm kiếm (có gợi ý), xem chi tiết sản phẩm.
+- **Giỏ hàng & Đơn hàng (Cart & Orders)**: Thêm vào giỏ hàng, thanh toán, quản lý đơn hàng cho cả Người mua và Người bán.
+- **Kênh người bán (Seller Channel)**: Quản lý sản phẩm (CRUD), quản lý đơn hàng.
+- **Admin**: Dashboard theo dõi hệ thống.
+
+### 🚧 Những tính năng chưa làm (Todo / Pending)
+- **Tải ảnh đại diện (Avatar Upload)**: Hiện tại profile chưa hỗ trợ người dùng upload và thay đổi ảnh đại diện cá nhân. Backend cần thêm API xử lý file ảnh và lưu trữ.
+- **Đánh giá sản phẩm (Reviews)**: Phần đánh giá (Review) sản phẩm sau khi mua hàng cần được hoàn thiện thêm về mặt giao diện và logic chi tiết.
+- **Quản lý Voucher (Khuyến mãi)**: Tính năng thêm/sửa/xóa Voucher cho Seller và Admin, áp dụng Voucher lúc thanh toán.
+- **Thống kê chi tiết (Advanced Analytics)**: Thống kê doanh thu chi tiết theo ngày/tháng/năm cho Seller và biểu đồ trực quan.
+- **Tích hợp thanh toán online**: Hiện tại chỉ hỗ trợ thanh toán khi nhận hàng (COD), cần tích hợp VNPay/Momo.
+
+---
+
 ## 🚀 Key Features
 - **Public**: Responsive Homepage with vibrant Mekong Delta aesthetics, Advanced Product filtering (category, search, origin).
 - **Auth**: JWT Authentication (Access + Refresh tokens), Role-based Access Control (Buyer, Seller, Admin).

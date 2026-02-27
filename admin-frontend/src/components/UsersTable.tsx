@@ -75,7 +75,7 @@ export default function UsersTable() {
                             <tr key={u.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50">
                                 <td className="p-4 pl-6 font-medium text-slate-900">#{u.id}</td>
                                 <td className="p-4 font-semibold text-slate-800">{u.name}</td>
-                                <td className="p-4 text-slate-600">{u.email}</td>
+                                <td className="p-4 font-medium text-slate-900">{u.email}</td>
                                 <td className="p-4">
                                     <span className={`px-2 py-1 rounded-full text-xs font-bold ${u.role === 'admin' ? 'bg-red-100 text-red-700' :
                                         u.role === 'seller' ? 'bg-indigo-100 text-indigo-700' :
@@ -84,7 +84,7 @@ export default function UsersTable() {
                                         {u.role.toUpperCase()}
                                     </span>
                                 </td>
-                                <td className="p-4 text-slate-500 text-sm">
+                                <td className="p-4 font-medium text-slate-900 text-sm">
                                     {new Date(u.created_at).toLocaleDateString('vi-VN')}
                                 </td>
                                 <td className="p-4 text-right pr-6 flex justify-end">
